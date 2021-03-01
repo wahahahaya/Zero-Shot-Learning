@@ -8,7 +8,12 @@ class resnet50(torch.nn.Module):
         super(resnet50, self).__init__()
         model = models.resnet50()
         fc_features = model.fc.in_features
-        model.fc = torch.nn.Linear(fc_features, 85)
+        model.fc = nn.Sequential(
+            nn.BatchNorm1d(fc_features),
+            nn.ReLU(),
+            nn.Dropout(0.25),
+            nn.Linear(fc_features, 85)
+        )
         self.resnet_fea = model
 
     def forward(self, x):

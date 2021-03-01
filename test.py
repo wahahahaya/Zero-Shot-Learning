@@ -1,7 +1,7 @@
 import numpy as np
 from pandas import DataFrame
 from data import AnimalDataset
-from model import resnet50
+from model import *
 
 from torch.utils.data import DataLoader
 from torchvision import datasets
@@ -63,7 +63,8 @@ def eval(model, dataloader):
 
 def test():
     model = resnet50().to(device)
-    model.load_state_dict(torch.load("saved_model/99.pth"))
+    model.load_state_dict(torch.load("saved_model/24.pth"))
+    model.eval()
 
     test_process_steps = transforms.Compose([
         transforms.Resize((224,224)),

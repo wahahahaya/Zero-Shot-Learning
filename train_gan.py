@@ -26,7 +26,7 @@ def train():
     Tensor = torch.cuda.FloatTensor if device == "cuda" else torch.Tensor
 
     # parameters
-    epochs = 10
+    epochs = 5
     last_epoch = 0
     sample_interval = 100
 

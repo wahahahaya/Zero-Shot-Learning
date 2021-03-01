@@ -21,7 +21,7 @@ def train():
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
     # parameters
-    num_epochs = 100
+    num_epochs = 25
     last_epoch = 0
 
     # image transformations
@@ -48,7 +48,7 @@ def train():
     criterion = torch.nn.BCELoss()
 
     # optimizer
-    opt = torch.optim.Adam(model.parameters(), lr=0.00001, betas=(0.01, 0.999))
+    opt = torch.optim.Adam(model.parameters(), lr=0.000025, betas=(0.01, 0.999))
 
     total_steps = len(train_data)
     batch_loss=[]
@@ -68,9 +68,9 @@ def train():
             loss.backward()
             opt.step()
 
+            batch_loss.append(loss.item())
             if i % 50 == 0:
                 print('Epoch [{}/{}], Step [{}/{}], Batch Loss: {:.4f}'.format(epoch + 1, num_epochs, i + 1, total_steps, loss.item()))
-                batch_loss.append(loss.item())
                 sys.stdout.flush()
 
         torch.save(model.state_dict(), "saved_model/%d.pth" % (epoch))
